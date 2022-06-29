@@ -6,7 +6,7 @@ const store = {
     loading: false,
     isLogin: false,
     isAdmin: false,
-    currencyBase: "",
+    currencyBase: "CAD",
     threshold: 0.0,
   },
   mutations: {

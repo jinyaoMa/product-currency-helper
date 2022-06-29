@@ -46,6 +46,10 @@ const login = () => {
   }
 }
 
+.title {
+  text-shadow: 0.1em 0.1em #999;
+}
+
 .title,
 .divider {
   text-align: center;

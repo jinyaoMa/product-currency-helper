@@ -17,12 +17,13 @@ const cancel = () => {
 <template>
   <div class="settings">
     <h1 class="title">Settings</h1>
-    <el-form class="form" size="large" label-position="top" :model="form" @keyup.enter.native="update">
+    <el-form class="form" size="large" label-position="top" :model="form">
       <el-form-item label="Currency Base">
-        <el-input type="text" v-model="store.state.currencyBase" />
+        <el-input type="text" v-model="store.state.currencyBase" @keyup.enter.native="update" />
       </el-form-item>
       <el-form-item label="Threshold">
-        <el-input-number v-model="store.state.threshold" :precision="2" :step="0.1" :min="0" />
+        <el-input-number v-model="store.state.threshold" :precision="2" :step="0.1" :min="0"
+          @keyup.enter.native="update" />
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="update">Update</el-button>
