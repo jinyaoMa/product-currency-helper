@@ -40,7 +40,7 @@
                 <mxCell id="4incZXHbuYqxuVHDM3kM-21" value="Admin" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" parent="1" vertex="1">
                     <mxGeometry x="680" y="320" width="30" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="4incZXHbuYqxuVHDM3kM-22" value="Login" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                <mxCell id="4incZXHbuYqxuVHDM3kM-22" value="Access with token" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="375" y="180" width="120" height="40" as="geometry"/>
                 </mxCell>
                 <mxCell id="4incZXHbuYqxuVHDM3kM-25" value="View all products" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
@@ -82,40 +82,40 @@
                         <mxPoint x="521.5889360201311" y="384.63557440805243" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="2" value="Create access tokens" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                <mxCell id="2" value="Create access tokens" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="395" y="540" width="120" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="3" value="Disable access token" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                <mxCell id="3" value="Disable access token" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="530" y="540" width="120" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="4" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" style="edgeStyle=none;html=1;endArrow=open;verticalAlign=bottom;dashed=1;labelBackgroundColor=none;rounded=0;" edge="1" parent="1" source="4incZXHbuYqxuVHDM3kM-30" target="2">
+                <mxCell id="4" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" style="edgeStyle=none;html=1;endArrow=open;verticalAlign=bottom;dashed=1;labelBackgroundColor=none;rounded=0;" parent="1" source="4incZXHbuYqxuVHDM3kM-30" target="2" edge="1">
                     <mxGeometry x="0.4022" y="-2" width="160" relative="1" as="geometry">
                         <mxPoint x="350" y="350" as="sourcePoint"/>
                         <mxPoint x="350" y="450" as="targetPoint"/>
                         <mxPoint as="offset"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="5" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" style="edgeStyle=none;html=1;endArrow=open;verticalAlign=bottom;dashed=1;labelBackgroundColor=none;rounded=0;" edge="1" parent="1" source="4incZXHbuYqxuVHDM3kM-30" target="3">
+                <mxCell id="5" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" style="edgeStyle=none;html=1;endArrow=open;verticalAlign=bottom;dashed=1;labelBackgroundColor=none;rounded=0;" parent="1" source="4incZXHbuYqxuVHDM3kM-30" target="3" edge="1">
                     <mxGeometry y="-7" width="160" relative="1" as="geometry">
                         <mxPoint x="360" y="360" as="sourcePoint"/>
                         <mxPoint x="360" y="460" as="targetPoint"/>
                         <mxPoint as="offset"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="6" value="Change currency base" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                <mxCell id="6" value="Change currency base" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="220" y="590" width="120" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="7" value="Switch API" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                <mxCell id="7" value="Switch API" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="354" y="590" width="120" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="8" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" style="edgeStyle=none;html=1;endArrow=open;verticalAlign=bottom;dashed=1;labelBackgroundColor=none;rounded=0;" edge="1" parent="1" source="4incZXHbuYqxuVHDM3kM-29" target="6">
+                <mxCell id="8" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" style="edgeStyle=none;html=1;endArrow=open;verticalAlign=bottom;dashed=1;labelBackgroundColor=none;rounded=0;" parent="1" source="4incZXHbuYqxuVHDM3kM-29" target="6" edge="1">
                     <mxGeometry x="0.5862" y="-7" width="160" relative="1" as="geometry">
                         <mxPoint x="350" y="350" as="sourcePoint"/>
                         <mxPoint x="350" y="450" as="targetPoint"/>
                         <mxPoint as="offset"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="9" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" style="edgeStyle=none;html=1;endArrow=open;verticalAlign=bottom;dashed=1;labelBackgroundColor=none;rounded=0;" edge="1" parent="1" source="4incZXHbuYqxuVHDM3kM-29" target="7">
+                <mxCell id="9" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" style="edgeStyle=none;html=1;endArrow=open;verticalAlign=bottom;dashed=1;labelBackgroundColor=none;rounded=0;" parent="1" source="4incZXHbuYqxuVHDM3kM-29" target="7" edge="1">
                     <mxGeometry x="-0.0013" y="-12" width="160" relative="1" as="geometry">
                         <mxPoint x="360" y="360" as="sourcePoint"/>
                         <mxPoint x="360" y="460" as="targetPoint"/>
