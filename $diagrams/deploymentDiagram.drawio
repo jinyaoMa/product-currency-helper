@@ -15,7 +15,7 @@
                 <mxCell id="4incZXHbuYqxuVHDM3kM-12" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;" parent="1" source="4incZXHbuYqxuVHDM3kM-1" target="4incZXHbuYqxuVHDM3kM-9" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="4incZXHbuYqxuVHDM3kM-13" value="&amp;lt;&amp;lt;HTTPS&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="4incZXHbuYqxuVHDM3kM-12" vertex="1" connectable="0">
+                <mxCell id="4incZXHbuYqxuVHDM3kM-13" value="&amp;lt;&amp;lt;HTTP&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="4incZXHbuYqxuVHDM3kM-12" vertex="1" connectable="0">
                     <mxGeometry x="-0.3579" y="-2" relative="1" as="geometry">
                         <mxPoint x="14" y="-2" as="offset"/>
                     </mxGeometry>
@@ -61,16 +61,16 @@
                         <mxPoint x="10" y="50" as="offset"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="2" value="Amdoren Currency API" style="verticalAlign=top;align=left;shape=cube;size=10;direction=south;fontStyle=4;html=1;boundedLbl=1;spacingLeft=5;" vertex="1" parent="1">
+                <mxCell id="2" value="Amdoren Currency API" style="verticalAlign=top;align=left;shape=cube;size=10;direction=south;fontStyle=4;html=1;boundedLbl=1;spacingLeft=5;" parent="1" vertex="1">
                     <mxGeometry x="520" y="360" width="160" height="80" as="geometry"/>
                 </mxCell>
-                <mxCell id="3" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;" edge="1" parent="1" source="4incZXHbuYqxuVHDM3kM-9" target="2">
+                <mxCell id="3" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;" parent="1" source="4incZXHbuYqxuVHDM3kM-9" target="2" edge="1">
                     <mxGeometry relative="1" as="geometry">
                         <mxPoint x="470" y="250" as="sourcePoint"/>
                         <mxPoint x="550" y="250" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="4" value="&amp;lt;&amp;lt;HTTPS&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="3">
+                <mxCell id="4" value="&amp;lt;&amp;lt;HTTPS&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="3" vertex="1" connectable="0">
                     <mxGeometry x="-0.2181" relative="1" as="geometry">
                         <mxPoint x="8" as="offset"/>
                     </mxGeometry>
