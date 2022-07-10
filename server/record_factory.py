@@ -1,7 +1,7 @@
 ################################################################################
 # Record using Factory pattern
 #
-# Purpose:
+# Purpose: to implement simple object-relation-mapping
 #
 #
 # Student Name: Jinyao Ma
@@ -10,24 +10,23 @@
 ################################################################################
 
 from abc import ABC, abstractmethod
-import json
 
 
-class RecordFactory:
+class RecordFactory():
 
     @staticmethod
-    def token():
+    def table_token():
         return "token"
 
     @staticmethod
-    def product():
+    def table_product():
         return "product"
 
     def get_record(self, table, data):
         if table == self.token():
-            return Token(data)
+            return TokenRecord(data)
         elif table == self.product():
-            return Product(data)
+            return ProductRecord(data)
         else:
             raise ValueError(table)
 
@@ -43,26 +42,29 @@ class Record(ABC):
         pass
 
     def set(self, data):
-        self.data["id"] = data["id"]
-        self.data["active"] = data["active"]
+        if data["id"] is None:
+            self.id = -1
+        else:
+            self.id = data["id"]
+        if data["active"] is None:
+            self.active = True
+        else:
+            self.active = data["active"]
         self.set_record(data)
 
-    def get_json(self):
-        return json.dumps(self.data)
 
-
-class Token(Record):
+class TokenRecord(Record):
 
     def set_record(self, data):
-        self.data["access_token"] = data["access_token"]
-        self.data["permission"] = data["permission"]
+        self.access_token = data["access_token"]
+        self.permission = data["permission"]
 
 
-class Product(Record):
+class ProductRecord(Record):
 
     def set_record(self, data):
-        self.data["title"] = data["title"]
-        self.data["url"] = data["url"]
-        self.data["img"] = data["img"]
-        self.data["price"] = data["price"]
-        self.data["currency_base"] = data["currency_base"]
+        self.title = data["title"]
+        self.url = data["url"]
+        self.img = data["img"]
+        self.price = data["price"]
+        self.base = data["base"]

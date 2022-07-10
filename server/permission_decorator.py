@@ -22,7 +22,7 @@ class Permission(ABC):
         pass
 
 
-class PermissionBasic(Permission):
+class BasicPermission(Permission):
 
     def get_string(self):
         return "basic:" + str(self.bit)
@@ -44,13 +44,13 @@ class PermissionDecorator(Permission):
         return self.__permission.get_string()
 
 
-class PermissionManipulation(PermissionDecorator):
+class ManipulationPermission(PermissionDecorator):
 
     def get_string(self):
         return self.permission.get_string() + ",manipulation:" + str(self.bit)
 
 
-class PermissionAdvanced(PermissionDecorator):
+class AdvancedPermission(PermissionDecorator):
 
     def get_string(self):
         return self.permission.get_string() + ",advanced:" + str(self.bit)
