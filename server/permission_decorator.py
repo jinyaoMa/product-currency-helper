@@ -21,6 +21,9 @@ class Permission(ABC):
     def get_string(self):
         pass
 
+    def __repr__(self):
+        return self.get_string()
+
 
 class BasicPermission(Permission):
 

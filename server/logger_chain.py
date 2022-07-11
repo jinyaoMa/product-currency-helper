@@ -15,10 +15,7 @@ from datetime import datetime
 
 class Logger(ABC):
 
-    __next_logger: "Logger"
-
-    def __init__(self):
-        self.__next_logger = None
+    __next_logger: "Logger" = None
 
     def next(self, logger):
         self.__next_logger = logger

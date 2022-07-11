@@ -50,11 +50,11 @@ class CurrencyApi(ApiStrategy):
 class AmdorenApi(ApiStrategy):
 
     def __init__(self, key):
-        self.key = key
+        self.__key = key
 
     def __api_call(self, from_base, to_base, rate_dict):
         res = requests.get("https://www.amdoren.com/api/currency.php" +
-                           "?api_key=" + self.key +
+                           "?api_key=" + self.__key +
                            "&from=" + from_base +
                            "&to=" + to_base)
         res_json = res.json()

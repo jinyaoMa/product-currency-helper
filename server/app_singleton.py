@@ -17,8 +17,8 @@ import redis
 
 
 class App():
-    __instance: "App"
-    __logger: Logger
+    __instance: "App" = None
+    __logger: Logger = None
 
     # Return the signleton instance instead of creating a new object of App
     def __new__(cls):
@@ -33,20 +33,20 @@ class App():
         config = configparser.ConfigParser()
         config.read('config.server.cfg')
 
-        # setup redis database connection
-        self.dbconn = redis.Redis(
-            host=config["Database"]["host"],
-            port=config["Database"]["port"],
-            password=config["Database"]["pwd"],
-            decode_responses=True
-        )
-
         # setup logger
         if config["Log"]["console"] == "TRUE":
             self.__logger = ConsoleLogger().next(self.__logger)
         if config["Log"]["file"] == "TRUE":
             self.__logger = FileLogger(
                 config["Log"]["log_file"]).next(self.__logger)
+
+        # setup redis database connection
+        self.dbconn = redis.Redis(
+            host=config["Database"]["host"],
+            port=int(config["Database"]["port"]),
+            password=config["Database"]["pwd"],
+            decode_responses=True
+        )
 
         # setup record factory to create records for token and product
         self.record_factory = RecordFactory()
@@ -59,7 +59,7 @@ class App():
         self.admin_token = config["Others"]["admin_token"]
 
         # setup server's port
-        self.server_port = config["Others"]["server_port"]
+        self.server_port = int(config["Others"]["server_port"])
 
     # Log a message with a tag in front of it
     def log(self, tag, message):
