@@ -11,6 +11,8 @@
 
 from abc import ABC, abstractmethod
 
+from api_strategy import ApiStrategy
+
 
 class RecordFactory():
 
@@ -42,10 +44,7 @@ class Record(ABC):
         pass
 
     def set(self, data):
-        if data["id"] is None:
-            self.id = -1
-        else:
-            self.id = data["id"]
+        self.id = data["id"]
         if data["active"] is None:
             self.active = True
         else:
@@ -67,4 +66,5 @@ class ProductRecord(Record):
         self.url = data["url"]
         self.img = data["img"]
         self.price = data["price"]
-        self.base = data["base"]
+        if data["base"] in ApiStrategy.base_options:
+            self.base = data["base"]

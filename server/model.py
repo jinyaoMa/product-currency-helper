@@ -51,10 +51,13 @@ class TokenModel(Model):
         record.id = self.count() + 1
         App().dbconn.set("token:count", record.id)
         token_key = "token:" + str(record.id)
-        App().dbconn.hset(token_key, "access_token",
-                          record.access_token)
-        App().dbconn.hset(token_key, "permission", record.permission)
-        App().dbconn.hset(token_key, "active", record.active)
+        if record.access_token is not None:
+            App().dbconn.hset(token_key, "access_token",
+                              record.access_token)
+        if record.permission is not None:
+            App().dbconn.hset(token_key, "permission", record.permission)
+        if record.active is not None:
+            App().dbconn.hset(token_key, "active", record.active)
 
     def get_list(self):
         token_list = []
@@ -76,11 +79,14 @@ class TokenModel(Model):
     def update(self, record):
         if record.id >= 0 and record.id < self.count():
             token_key = "token:" + str(record.id)
-            App().dbconn.hset(token_key, "access_token",
-                              record.access_token)
-            App().dbconn.hset(token_key, "permission",
-                              record.permission)
-            App().dbconn.hset(token_key, "active", record.active)
+            if record.access_token is not None:
+                App().dbconn.hset(token_key, "access_token",
+                                  record.access_token)
+            if record.permission is not None:
+                App().dbconn.hset(token_key, "permission",
+                                  record.permission)
+            if record.active is not None:
+                App().dbconn.hset(token_key, "active", record.active)
 
     def activate(self, id):
         if id >= 0 and id < self.count():
@@ -103,12 +109,18 @@ class ProductModel(Model):
         record.id = self.count() + 1
         App().dbconn.set("product:count", record.id)
         product_key = "product:" + str(record.id)
-        App().dbconn.hset(product_key, "title", record.title)
-        App().dbconn.hset(product_key, "url", record.url)
-        App().dbconn.hset(product_key, "img", record.img)
-        App().dbconn.hset(product_key, "base", record.base)
-        App().dbconn.hset(product_key, "price", record.price)
-        App().dbconn.hset(product_key, "active", record.active)
+        if record.title is not None:
+            App().dbconn.hset(product_key, "title", record.title)
+        if record.url is not None:
+            App().dbconn.hset(product_key, "url", record.url)
+        if record.img is not None:
+            App().dbconn.hset(product_key, "img", record.img)
+        if record.base is not None:
+            App().dbconn.hset(product_key, "base", record.base)
+        if record.price is not None:
+            App().dbconn.hset(product_key, "price", record.price)
+        if record.active is not None:
+            App().dbconn.hset(product_key, "active", record.active)
 
     def get_list(self):
         product_list = []
@@ -134,12 +146,18 @@ class ProductModel(Model):
     def update(self, record):
         if record.id >= 0 and record.id < self.count():
             product_key = "product:" + str(record.id)
-            App().dbconn.hset(product_key, "title", record.title)
-            App().dbconn.hset(product_key, "url", record.url)
-            App().dbconn.hset(product_key, "img", record.img)
-            App().dbconn.hset(product_key, "base", record.base)
-            App().dbconn.hset(product_key, "price", record.price)
-            App().dbconn.hset(product_key, "active", record.active)
+            if record.title is not None:
+                App().dbconn.hset(product_key, "title", record.title)
+            if record.url is not None:
+                App().dbconn.hset(product_key, "url", record.url)
+            if record.img is not None:
+                App().dbconn.hset(product_key, "img", record.img)
+            if record.base is not None:
+                App().dbconn.hset(product_key, "base", record.base)
+            if record.price is not None:
+                App().dbconn.hset(product_key, "price", record.price)
+            if record.active is not None:
+                App().dbconn.hset(product_key, "active", record.active)
 
     def activate(self, id):
         if id >= 0 and id < self.count():

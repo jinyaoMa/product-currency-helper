@@ -25,33 +25,35 @@ class ProductCurrencyHelperServices():
     tag_api_amdoren_ = "API|AMDOREN_"
     tag_act_service_ = "ACT|SERVICE_"
 
-    def __init__(self, token_model: TokenModel, product_model: ProductModel):
-        self.__token_model = token_model
-        self.__product_model = product_model
+    def __init__(self):
+        self.__token_model = TokenModel()
+        self.__product_model = ProductModel()
 
     def check_token(self, token):
         if token == App().admin_token:
             App().log(self.tag_act_service_, "admin checks token (" + token + ") and pass")
-            return True
+            return AdvancedPermission(ManipulationPermission(BasicPermission(1), 1), 1).get_string()
         for _, t in self.__token_model.get_list():
             if token == t["access_token"] and t["active"]:
                 App().log(self.tag_act_service_, "a user checks token (" + token + ") and pass")
-                return True
+                return t["permission"]
         App().log(self.tag_act_service_, "a user's token (" + token + ") is invalid")
-        return False
+        return ""
 
     def get_token_list(self):
-        json_token_list = json.dumps(self.__token_model.get_list())
+        json_token_list = self.__token_model.get_list()
         App().log(self.tag_act_service_, "a user gets token list: " + json_token_list)
         return json_token_list
 
     def create_token(self, permission_string):
+        App().log(self.tag_act_service_,
+                  "a user creates a token with permission: " + permission_string)
         permission = BasicPermission(1)
-        if len(re.findall("manipulation:1", permission_string)) > 0:
+        if len(re.findall("m:1", permission_string)) > 0:
             permission = ManipulationPermission(permission, 1)
         else:
             permission = ManipulationPermission(permission, 0)
-        if len(re.findall("advanced:1", permission_string)) > 0:
+        if len(re.findall("a:1", permission_string)) > 0:
             permission = AdvancedPermission(permission, 1)
         else:
             permission = AdvancedPermission(permission, 0)
@@ -64,39 +66,56 @@ class ProductCurrencyHelperServices():
         return token
 
     def deactivate_token(self, id):
+        App().log(self.tag_act_service_, "a user deactivates a token with id: " + id)
         self.__token_model.deactivate(id)
 
     def activate_token(self, id):
+        App().log(self.tag_act_service_, "a user activates a token with id: " + id)
         self.__token_model.activate(id)
 
     def get_product_list(self):
-        json_product_list = json.dumps(self.__product_model.get_list())
+        json_product_list = self.__product_model.get_list()
         App().log(self.tag_act_service_, "a user gets product list: " + json_product_list)
         return json_product_list
 
     def create_product(self, data):
+        App().log(self.tag_act_service_, "a user creates a product with data: " + data)
         product = App().record_factory.get_record(RecordFactory.table_product, data)
         self.__product_model.create(product)
         return product
 
     def update_product(self, data):
+        App().log(self.tag_act_service_, "a user updates a product with data: " + data)
         product = App().record_factory.get_record(RecordFactory.table_product, data)
         self.__product_model.update(product)
         return product
 
     def delete_product(self, id):
+        App().log(self.tag_act_service_, "a user deletes a product with id: " + id)
         self.__product_model.deactivate(id)
 
     def get_rate_dict(self, which, currency_base):
+        App().log(self.tag_act_service_, "a user gets rate dict with params: " +
+                  "which = " + which + "currency_base = " + currency_base)
         api = None
         if which == "currency":
             api = App().currency_api
-        elif which == "currency":
+            App().log(self.tag_act_service_, "a user gets rate dict via Currency-api")
+        elif which == "amdoren":
             api = App().amdoren_api
+            App().log(self.tag_act_service_, "a user gets rate dict via Amdoren Currency API")
         else:
+            App().log(self.tag_act_service_, "a user fails to get rate dict")
             return {}
 
-        return api.get_rate_dict(currency_base)
+        rate_dict = api.get_rate_dict(currency_base)
+        if which == "currency":
+            App().log(self.tag_api_currency, "a user gets rate dict: " + rate_dict)
+        elif which == "amdoren":
+            App().log(self.tag_api_amdoren_, "a user gets rate dict: " + rate_dict)
+
+        return rate_dict
 
     def get_base_options(self):
+        App().log(self.tag_act_service_, "a user gets base options: " + ApiStrategy.base_options)
         return ApiStrategy.base_options
