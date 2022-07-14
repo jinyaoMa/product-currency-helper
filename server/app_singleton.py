@@ -53,7 +53,8 @@ class App():
 
         # setup the 2 currency exchange rate APIs
         self.currency_api = CurrencyApi()
-        self.amdoren_api = AmdorenApi(config["Others"]["amdoren_key"])
+        self.exchangerate_api = ExchangeRateApi(
+            config["Others"]["exchangerate_api_key"])
 
         # setup access token for admin
         self.admin_token = config["Others"]["admin_token"]

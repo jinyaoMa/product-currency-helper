@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="Od63W_pdOBnkHrB-RWtR" name="Page-1">
-        <mxGraphModel dx="618" dy="534" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+        <mxGraphModel dx="918" dy="535" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -31,7 +31,7 @@
                 <mxCell id="4incZXHbuYqxuVHDM3kM-3" value="Product Currency Helper Client" style="shape=module;align=left;spacingLeft=20;align=center;verticalAlign=top;whiteSpace=wrap;spacingTop=5;spacingRight=2;" parent="4incZXHbuYqxuVHDM3kM-1" vertex="1">
                     <mxGeometry x="18" y="90" width="122" height="50" as="geometry"/>
                 </mxCell>
-                <mxCell id="4incZXHbuYqxuVHDM3kM-4" value="Currency API" style="verticalAlign=top;align=left;shape=cube;size=10;direction=south;fontStyle=4;html=1;boundedLbl=1;spacingLeft=5;" parent="1" vertex="1">
+                <mxCell id="4incZXHbuYqxuVHDM3kM-4" value="Currency-api" style="verticalAlign=top;align=left;shape=cube;size=10;direction=south;fontStyle=4;html=1;boundedLbl=1;spacingLeft=5;" parent="1" vertex="1">
                     <mxGeometry x="540" y="200" width="160" height="80" as="geometry"/>
                 </mxCell>
                 <mxCell id="4incZXHbuYqxuVHDM3kM-16" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;" parent="1" source="4incZXHbuYqxuVHDM3kM-9" target="4incZXHbuYqxuVHDM3kM-14" edge="1">
@@ -61,7 +61,7 @@
                         <mxPoint x="10" y="50" as="offset"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="2" value="Amdoren Currency API" style="verticalAlign=top;align=left;shape=cube;size=10;direction=south;fontStyle=4;html=1;boundedLbl=1;spacingLeft=5;" parent="1" vertex="1">
+                <mxCell id="2" value="ExchangeRate-API" style="verticalAlign=top;align=left;shape=cube;size=10;direction=south;fontStyle=4;html=1;boundedLbl=1;spacingLeft=5;" parent="1" vertex="1">
                     <mxGeometry x="520" y="360" width="160" height="80" as="geometry"/>
                 </mxCell>
                 <mxCell id="3" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;" parent="1" source="4incZXHbuYqxuVHDM3kM-9" target="2" edge="1">

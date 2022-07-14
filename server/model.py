@@ -72,7 +72,7 @@ class TokenModel(Model):
                     App().dbconn.hget(token_key, "access_token"))
                 token["permission"] = str(
                     App().dbconn.hget(token_key, "permission"))
-                token["active"] = bool(App().dbconn.hget(token_key, "active"))
+                token["active"] = int(App().dbconn.hget(token_key, "active"))
                 token_list.append(token)
         return token_list
 
@@ -90,11 +90,11 @@ class TokenModel(Model):
 
     def activate(self, id):
         if id >= 0 and id < self.count():
-            App().dbconn.hset("token:" + str(id), "active", True)
+            App().dbconn.hset("token:" + str(id), "active", 1)
 
     def deactivate(self, id):
         if id >= 0 and id < self.count():
-            App().dbconn.hset("token:" + str(id), "active", False)
+            App().dbconn.hset("token:" + str(id), "active", 0)
 
 
 class ProductModel(Model):
@@ -137,9 +137,9 @@ class ProductModel(Model):
                 product["base"] = str(App().dbconn.hget(product_key, "base"))
                 product["price"] = float(
                     App().dbconn.hget(product_key, "price"))
-                product["active"] = bool(
+                product["active"] = int(
                     App().dbconn.hget(product_key, "active"))
-                if product["active"]:  # only get those are NOT soft deleted
+                if product["active"] == 1:  # only get those are NOT soft deleted
                     product_list.append(product)
         return product_list
 
@@ -161,8 +161,8 @@ class ProductModel(Model):
 
     def activate(self, id):
         if id >= 0 and id < self.count():
-            App().dbconn.hset("product:" + str(id), "active", True)
+            App().dbconn.hset("product:" + str(id), "active", 1)
 
     def deactivate(self, id):
         if id >= 0 and id < self.count():
-            App().dbconn.hset("product:" + str(id), "active", False)
+            App().dbconn.hset("product:" + str(id), "active", 0)
