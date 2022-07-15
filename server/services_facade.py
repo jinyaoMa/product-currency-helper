@@ -9,6 +9,7 @@
 #
 ################################################################################
 
+import json
 from app_singleton import App
 from model import *
 from record_factory import RecordFactory
@@ -41,18 +42,18 @@ class ProductCurrencyHelperServices():
 
     def get_token_list(self):
         json_token_list = self.__token_model.get_list()
-        App().log(self.tag_act_service_, "a user gets token list: " + ",".join(json_token_list))
+        App().log(self.tag_act_service_, "a user gets token list: " + json.dumps(json_token_list))
         return json_token_list
 
     def create_token(self, permission_string):
         App().log(self.tag_act_service_,
                   "a user creates a token with permission: " + permission_string)
         permission = BasicPermission(1)
-        if len(re.findall("m:1", permission_string)) > 0:
+        if len(re.findall("m", permission_string)) > 0:
             permission = ManipulationPermission(permission, 1)
         else:
             permission = ManipulationPermission(permission, 0)
-        if len(re.findall("a:1", permission_string)) > 0:
+        if len(re.findall("a", permission_string)) > 0:
             permission = AdvancedPermission(permission, 1)
         else:
             permission = AdvancedPermission(permission, 0)
@@ -75,7 +76,7 @@ class ProductCurrencyHelperServices():
     def get_product_list(self):
         json_product_list = self.__product_model.get_list()
         App().log(self.tag_act_service_,
-                  "a user gets product list: " + ",".join(json_product_list))
+                  "a user gets product list: " + json.dumps(json_product_list))
         return json_product_list
 
     def create_product(self, data):
@@ -120,3 +121,8 @@ class ProductCurrencyHelperServices():
         App().log(self.tag_act_service_, "a user gets base options: " +
                   ",".join(ApiStrategy.base_options))
         return ApiStrategy.base_options
+
+    def get_api_options(self):
+        App().log(self.tag_act_service_, "a user gets API options: " +
+                  ",".join(ApiStrategy.api_options))
+        return ApiStrategy.api_options

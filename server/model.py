@@ -63,7 +63,7 @@ class TokenModel(Model):
         token_list = []
         count = self.count()
         if count > 0:
-            for i in range(0, count):
+            for i in range(1, count+1):
                 token_key = "token:" + str(i)
                 token = {
                     "id": i,
@@ -77,7 +77,7 @@ class TokenModel(Model):
         return token_list
 
     def update(self, record):
-        if record.id >= 0 and record.id < self.count():
+        if record.id > 0 and record.id <= self.count():
             token_key = "token:" + str(record.id)
             if record.access_token is not None:
                 App().dbconn.hset(token_key, "access_token",
@@ -89,11 +89,11 @@ class TokenModel(Model):
                 App().dbconn.hset(token_key, "active", record.active)
 
     def activate(self, id):
-        if id >= 0 and id < self.count():
+        if id > 0 and id <= self.count():
             App().dbconn.hset("token:" + str(id), "active", 1)
 
     def deactivate(self, id):
-        if id >= 0 and id < self.count():
+        if id > 0 and id <= self.count():
             App().dbconn.hset("token:" + str(id), "active", 0)
 
 
@@ -126,7 +126,7 @@ class ProductModel(Model):
         product_list = []
         count = self.count()
         if count > 0:
-            for i in range(0, count):
+            for i in range(1, count+1):
                 product_key = "product:" + str(i)
                 product = {
                     "id": i,
@@ -144,7 +144,7 @@ class ProductModel(Model):
         return product_list
 
     def update(self, record):
-        if record.id >= 0 and record.id < self.count():
+        if record.id > 0 and record.id <= self.count():
             product_key = "product:" + str(record.id)
             if record.title is not None:
                 App().dbconn.hset(product_key, "title", record.title)
@@ -160,9 +160,9 @@ class ProductModel(Model):
                 App().dbconn.hset(product_key, "active", record.active)
 
     def activate(self, id):
-        if id >= 0 and id < self.count():
+        if id > 0 and id <= self.count():
             App().dbconn.hset("product:" + str(id), "active", 1)
 
     def deactivate(self, id):
-        if id >= 0 and id < self.count():
+        if id > 0 and id <= self.count():
             App().dbconn.hset("product:" + str(id), "active", 0)

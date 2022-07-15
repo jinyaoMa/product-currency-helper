@@ -21,6 +21,7 @@ const routes = [
     meta: {
       title: "Settings | Product Currency Helper",
       requireAuth: true,
+      requireAuthBasic: true,
     },
   },
   {
@@ -29,7 +30,7 @@ const routes = [
     meta: {
       title: "Access Tokens | Product Currency Helper",
       requireAuth: true,
-      requireAdmin: true,
+      requireAuthAdvanced: true,
     },
   },
   {
@@ -38,6 +39,7 @@ const routes = [
     meta: {
       title: "Home | Product Currency Helper",
       requireAuth: true,
+      requireAuthBasic: true,
     },
   },
   {
@@ -58,13 +60,36 @@ router.beforeEach((to, from, next) => {
   if (to.meta.title) {
     document.title = to.meta.title;
   }
-  if (to.meta.requireAuth && !store.state.isLogin) {
+
+  if (to.meta.requireAuth && !document.cookie.includes("PCH_PERM=")) {
     next("/login");
     return;
   }
-  if (to.meta.requireAdmin && !store.state.isAdmin) {
+  if (to.meta.requireAuthBasic && !document.cookie.includes("basic:1")) {
+    next("/login");
     return;
   }
+  if (to.meta.requireAuthAdvanced && !document.cookie.includes("advanced:1")) {
+    next("/login");
+    return;
+  }
+
+  const permission = {
+    basic: false,
+    manipulation: false,
+    advanced: false,
+  };
+  if (document.cookie.includes("basic:1")) {
+    permission.basic = true;
+  }
+  if (document.cookie.includes("manipulation:1")) {
+    permission.manipulation = true;
+  }
+  if (document.cookie.includes("advanced:1")) {
+    permission.advanced = true;
+  }
+  to.params.permission = permission;
+
   next();
 });
 

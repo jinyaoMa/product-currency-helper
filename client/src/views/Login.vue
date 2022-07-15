@@ -1,19 +1,34 @@
 <script setup>
-import { reactive, ref } from 'vue'
+import { ref } from 'vue'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
+import { http } from '../http'
+import { ElMessage } from 'element-plus'
 
 const store = useStore()
 const router = useRouter()
 
-const form = reactive({
-  accessToken: ""
-})
+const accessToken = ref("")
 
 const login = () => {
-  console.log('login!')
-  store.commit('changeLoginState', true)
-  router.push("/")
+  store.state.loading = true
+  http.get(`/access/${accessToken.value}`).then((res) => {
+    store.state.loading = false
+    if (res.data.success) {
+      router.push("/")
+    } else {
+      ElMessage({
+        message: "Invalid access token",
+        type: "error"
+      })
+    }
+  }).catch(() => {
+    store.state.loading = false
+    ElMessage({
+      message: "Access token should not be empty",
+      type: "error"
+    })
+  })
 }
 </script>
 
@@ -21,10 +36,10 @@ const login = () => {
   <div class="login">
     <h1 class="title">Product Currency Helper</h1>
     <el-divider class="divider">by Jinyao Ma, 001433428</el-divider>
-    <el-form class="form" size="large" label-position="top" :model="form">
+    <el-form class="form" size="large" label-position="top">
       <el-form-item label="Access Token">
-        <el-input type="password" v-model="form.accessToken" placeholder="Access Token" show-password
-          @keyup.enter.native="login" />
+        <el-input type="password" v-model="accessToken" placeholder="Access Token" show-password
+          @keyup.enter.native="login" autocomplete />
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="login">Login</el-button>

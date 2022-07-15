@@ -1,34 +1,20 @@
 <script setup>
-import { reactive } from 'vue'
-import { useRouter } from 'vue-router'
+import { onMounted, reactive, ref } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
 import { useStore } from 'vuex'
+import { http } from '../http'
+import { ElMessage } from 'element-plus'
+import { storage } from '../utils'
 
+const route = useRoute()
 const router = useRouter()
 const store = useStore()
 
-const bases = ["CAD", "USD"]
+const baseOptions = ref([])
+const apiOptions = ref([])
+const rates = ref({})
 
-const items = reactive([
-  {
-    id: 1,
-    title: "Title 1",
-    url: "#",
-    img: "https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png",
-    price: 99.9,
-    base: "USD"
-  },
-  {
-    id: 2,
-    title: "Title 2",
-    url: "#",
-    img: "https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png",
-    price: 9999.9,
-    base: "USD"
-  }
-])
-items.forEach(item => {
-  item.isEdit = false
-})
+const items = ref([])
 
 const newItem = reactive({
   title: "",
@@ -38,12 +24,183 @@ const newItem = reactive({
   base: ""
 })
 
-const update = () => {
-  router.push("/")
+onMounted(async () => {
+  storage.loadSettings(store.state)
+  store.state.loading = true
+  await http.get(`/base-options`).then((res) => {
+    if (res.data.success) {
+      baseOptions.value = res.data.data
+    } else {
+      router.push("/login")
+      ElMessage({
+        message: "You have not logged in",
+        type: "error"
+      })
+    }
+  }).catch(() => {
+    router.push("/login")
+    ElMessage({
+      message: "Oops, server is down",
+      type: "error"
+    })
+  })
+  if (!baseOptions.value.includes(store.state.base)) {
+    store.state.base = baseOptions.value[0]
+  }
+  await http.get(`/api-options`).then((res) => {
+    if (res.data.success) {
+      apiOptions.value = res.data.data
+    } else {
+      router.push("/login")
+      ElMessage({
+        message: "You have not logged in",
+        type: "error"
+      })
+    }
+  }).catch(() => {
+    router.push("/login")
+    ElMessage({
+      message: "Oops, server is down",
+      type: "error"
+    })
+  })
+  if (!apiOptions.value.includes(store.state.api)) {
+    store.state.api = apiOptions.value[0]
+  }
+  await http.get(`/service/${store.state.api}/base/${store.state.base}`).then((res) => {
+    if (res.data.success) {
+      rates.value = res.data.data.to
+    } else {
+      router.push("/login")
+      ElMessage({
+        message: "You have not logged in",
+        type: "error"
+      })
+    }
+  }).catch(() => {
+    router.push("/login")
+    ElMessage({
+      message: "Oops, server is down",
+      type: "error"
+    })
+  })
+  await http.get(`/product/list`).then((res) => {
+    if (res.data.success) {
+      res.data.data.forEach(item => {
+        item.isEdit = false
+      })
+      items.value = res.data.data
+    } else {
+      router.push("/login")
+      ElMessage({
+        message: "You have not logged in",
+        type: "error"
+      })
+    }
+  }).catch(() => {
+    router.push("/login")
+    ElMessage({
+      message: "Oops, server is down",
+      type: "error"
+    })
+  })
+  store.state.loading = false
+  storage.saveSettings(store.state)
+})
+
+const logout = () => {
+  store.state.loading = true
+  http.get(`/logout`).then((res) => {
+    store.state.loading = false
+    if (!res.data.success) {
+      ElMessage({
+        message: "You have not logged in",
+        type: "error"
+      })
+    }
+    router.push("/login")
+  }).catch(() => {
+    store.state.loading = false
+    router.push("/login")
+    ElMessage({
+      message: "Oops, server is down",
+      type: "error"
+    })
+  })
+}
+
+const update = (item) => {
+  if (item.title == "" ||
+    !item.url.startsWith("http") ||
+    !item.img.startsWith("http") ||
+    item.price == "" ||
+    item.base == "") {
+    ElMessage({
+      message: "Some values are not good to update",
+      type: "error"
+    })
+    return
+  }
+  store.state.loading = true
+  http.post(`/product`, item).then((res) => {
+    store.state.loading = false
+    if (res.data.success) {
+      const i = res.data.data
+      item.title = i.title
+      item.url = i.url
+      item.img = i.img
+      item.price = i.price
+      item.base = i.base
+      item.isEdit = false
+    } else {
+      router.push("/login")
+      ElMessage({
+        message: "You have not logged in",
+        type: "error"
+      })
+    }
+  }).catch(() => {
+    store.state.loading = false
+    router.push("/login")
+    ElMessage({
+      message: "Oops, server is down",
+      type: "error"
+    })
+  })
 }
 
 const add = () => {
-  router.push("/")
+  if (newItem.title == "" ||
+    !newItem.url.startsWith("http") ||
+    !newItem.img.startsWith("http") ||
+    newItem.price == "" ||
+    newItem.base == "") {
+    ElMessage({
+      message: "Some values are not good to add",
+      type: "error"
+    })
+    return
+  }
+  store.state.loading = true
+  http.put(`/product`, newItem).then((res) => {
+    store.state.loading = false
+    if (res.data.success) {
+      items.value.push(res.data.data)
+    } else {
+      router.push("/login")
+      ElMessage({
+        message: "You have not logged in",
+        type: "error"
+      })
+    }
+  }).catch(() => {
+    store.state.loading = false
+    router.push("/login")
+    ElMessage({
+      message: "Oops, server is down",
+      type: "error"
+    })
+  })
 }
 
 </script>
@@ -56,9 +213,10 @@ const add = () => {
         <div class="header-more">
           <el-button-group class="header-more-config">
             <el-button type="primary" size="large" @click="router.push('/settings')">Settings</el-button>
-            <el-button type="primary" size="large" @click="router.push('/tokens')">Access Tokens</el-button>
+            <el-button v-if="route.params.permission.advanced" type="primary" size="large"
+              @click="router.push('/tokens')">Access Tokens</el-button>
           </el-button-group>
-          <el-button class="header-more-logout" type="danger" size="large" @click="router.push('/login')" plain>
+          <el-button class="header-more-logout" type="danger" size="large" @click="logout" plain>
             Logout</el-button>
         </div>
       </el-header>
@@ -66,30 +224,28 @@ const add = () => {
         <div class="main">
           <el-card class="card" v-for="item in items" :key="item.id" :body-style="{ padding: '0px' }" shadow="hover">
             <div v-if="item.isEdit" class="bottom" style="background-color: transparent">
-              <el-form class="form" size="large" :model="newItem">
+              <el-form class="form" size="large">
                 <el-form-item>
-                  <el-input type="text" v-model="item.title" placeholder="Title"
-                    @keyup.enter.native="update(item.id)" />
+                  <el-input type="text" v-model="item.title" placeholder="Title" @keyup.enter.native="update(item)" />
                 </el-form-item>
                 <el-form-item>
                   <el-input type="text" v-model="item.url" placeholder="Product URL"
-                    @keyup.enter.native="update(item.id)" />
+                    @keyup.enter.native="update(item)" />
                 </el-form-item>
                 <el-form-item>
-                  <el-input type="text" v-model="item.img" placeholder="Image URL"
-                    @keyup.enter.native="update(item.id)" />
+                  <el-input type="text" v-model="item.img" placeholder="Image URL" @keyup.enter.native="update(item)" />
                 </el-form-item>
                 <el-form-item>
                   <el-input type="number" v-model="item.price" placeholder="Price" min="0" step="0.05"
-                    @keyup.enter.native="update(item.id)" />
+                    @keyup.enter.native="update(item)" />
                 </el-form-item>
                 <el-form-item>
                   <el-select v-model="item.base" placeholder="Currency Base" style="width: 100%;">
-                    <el-option v-for="b in bases" :key="b" :label="b" :value="b" />
+                    <el-option v-for="b in baseOptions" :key="b" :label="b.toUpperCase()" :value="b" />
                   </el-select>
                 </el-form-item>
                 <el-form-item style="margin-bottom: 0;">
-                  <el-button style="width: calc(50% - 0.5em);" type="primary" size="large" @click="update(item.id)">
+                  <el-button style="width: calc(50% - 0.5em);" type="primary" size="large" @click="update(item)">
                     Update
                   </el-button>
                   <el-button style="width: calc(50% - 0.5em); margin-left: 1em;" size="large"
@@ -102,8 +258,9 @@ const add = () => {
               <img :src="item.img" class="image" />
               <div class="bottom">
                 <div style="font-size: 1.3em; margin-bottom: 0.5em">{{ item.title }}</div>
-                <div>{{ store.state.currencyBase }}$ {{ item.price }}</div>
-                <div style="font-size: 0.8em">({{ item.base }}$ {{ item.price }})</div>
+                <div v-if="store.state.base == item.base">{{ store.state.base.toUpperCase() }}$ {{ item.price }}</div>
+                <div v-else>{{ store.state.base.toUpperCase() }}$ {{ (item.price / rates[item.base]).toFixed(2) }}</div>
+                <div style="font-size: 0.8em">({{ item.base.toUpperCase() }}$ {{ item.price }})</div>
                 <div style="margin-top: 1em">
                   <el-button style="width: 100%;" type="primary" size="large" @click="item.isEdit = true">Edit
                   </el-button>
@@ -129,7 +286,7 @@ const add = () => {
                 </el-form-item>
                 <el-form-item>
                   <el-select v-model="newItem.base" placeholder="Currency Base" style="width: 100%;">
-                    <el-option v-for="b in bases" :key="b" :label="b" :value="b" />
+                    <el-option v-for="b in baseOptions" :key="b" :label="b.toUpperCase()" :value="b" />
                   </el-select>
                 </el-form-item>
                 <el-form-item style="margin-bottom: 0;">

@@ -1,5 +1,4 @@
 {
-  "apiHttps": true,
   "apiDomain": "localhost",
   "apiPort": 8081,
   "apiBase": "/api"

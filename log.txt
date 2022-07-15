@@ -1,2 +1,54 @@
-[ACT|SERVICE_](2022/07/d,21:19:41): a user updates a product with data: {'id': 1, 'title': 'testTitle1', 'url': 'testURL1', 'img': 'testImg1', 'price': 12.34, 'base': 'usd'}
-[ACT|SERVICE_](2022/07/d,21:20:28): a user deletes a product with id: 1
+[ACT|SERVICE_](2022/07/d,18:33:47): a user gets base options: cad,cny,usd,hkd,jpy,eur
+[ACT|SERVICE_](2022/07/d,18:33:47): a user gets API options: currency,exchange
+[ACT|SERVICE_](2022/07/d,18:33:47): a user gets rate dict with params: which = exchange, currency_base = cny
+[ACT|SERVICE_](2022/07/d,18:33:47): a user gets rate dict via ExchangeRate-API
+[API|EXCHANGE](2022/07/d,18:33:47): a user gets rate dict: {'from': 'cny', 'to': {'cad': 0.1942, 'usd': 0.1481, 'hkd': 1.1634, 'jpy': 20.5719, 'eur': 0.1479}}
+[ACT|SERVICE_](2022/07/d,18:33:48): a user gets product list: [{"id": 1, "title": "test", "url": "http", "img": "http", "base": "cad", "price": 123.0, "active": 1}, {"id": 2, "title": "ttt", "url": "http123", "img": "http123", "base": "cny", "price": 6.0, "active": 1}]
+[ACT|SERVICE_](2022/07/d,18:33:53): a user gets base options: cad,cny,usd,hkd,jpy,eur
+[ACT|SERVICE_](2022/07/d,18:33:53): a user gets API options: currency,exchange
+[ACT|SERVICE_](2022/07/d,18:33:53): a user gets rate dict with params: which = exchange, currency_base = cny
+[ACT|SERVICE_](2022/07/d,18:33:53): a user gets rate dict via ExchangeRate-API
+[API|EXCHANGE](2022/07/d,18:33:53): a user gets rate dict: {'from': 'cny', 'to': {'cad': 0.1942, 'usd': 0.1481, 'hkd': 1.1634, 'jpy': 20.5719, 'eur': 0.1479}}
+[ACT|SERVICE_](2022/07/d,18:33:54): a user gets product list: [{"id": 1, "title": "test", "url": "http", "img": "http", "base": "cad", "price": 123.0, "active": 1}, {"id": 2, "title": "ttt", "url": "http123", "img": "http123", "base": "cny", "price": 6.0, "active": 1}]
+[ACT|SERVICE_](2022/07/d,18:34:00): a user gets base options: cad,cny,usd,hkd,jpy,eur
+[ACT|SERVICE_](2022/07/d,18:34:00): a user gets API options: currency,exchange
+[ACT|SERVICE_](2022/07/d,18:34:03): a user gets base options: cad,cny,usd,hkd,jpy,eur
+[ACT|SERVICE_](2022/07/d,18:34:03): a user gets API options: currency,exchange
+[ACT|SERVICE_](2022/07/d,18:34:03): a user gets rate dict with params: which = exchange, currency_base = cny
+[ACT|SERVICE_](2022/07/d,18:34:03): a user gets rate dict via ExchangeRate-API
+[API|EXCHANGE](2022/07/d,18:34:03): a user gets rate dict: {'from': 'cny', 'to': {'cad': 0.1942, 'usd': 0.1481, 'hkd': 1.1634, 'jpy': 20.5719, 'eur': 0.1479}}
+[ACT|SERVICE_](2022/07/d,18:34:03): a user gets product list: [{"id": 1, "title": "test", "url": "http", "img": "http", "base": "cad", "price": 123.0, "active": 1}, {"id": 2, "title": "ttt", "url": "http123", "img": "http123", "base": "cny", "price": 6.0, "active": 1}]
+[ACT|SERVICE_](2022/07/d,18:34:18): a user gets base options: cad,cny,usd,hkd,jpy,eur
+[ACT|SERVICE_](2022/07/d,18:34:18): a user gets API options: currency,exchange
+[ACT|SERVICE_](2022/07/d,18:34:20): a user gets base options: cad,cny,usd,hkd,jpy,eur
+[ACT|SERVICE_](2022/07/d,18:34:20): a user gets API options: currency,exchange
+[ACT|SERVICE_](2022/07/d,18:34:20): a user gets rate dict with params: which = currency, currency_base = cny
+[ACT|SERVICE_](2022/07/d,18:34:20): a user gets rate dict via Currency-api
+[API|CURRENCY](2022/07/d,18:34:20): a user gets rate dict: {'from': 'cny', 'to': {'cad': 0.193572, 'usd': 0.148838, 'hkd': 1.168346, 'jpy': 20.500407, 'eur': 0.14846}}
+[ACT|SERVICE_](2022/07/d,18:34:21): a user gets product list: [{"id": 1, "title": "test", "url": "http", "img": "http", "base": "cad", "price": 123.0, "active": 1}, {"id": 2, "title": "ttt", "url": "http123", "img": "http123", "base": "cny", "price": 6.0, "active": 1}]
+[ACT|SERVICE_](2022/07/d,18:34:41): a user gets base options: cad,cny,usd,hkd,jpy,eur
+[ACT|SERVICE_](2022/07/d,18:34:41): a user gets API options: currency,exchange
+[ACT|SERVICE_](2022/07/d,18:34:43): a user gets base options: cad,cny,usd,hkd,jpy,eur
+[ACT|SERVICE_](2022/07/d,18:34:43): a user gets API options: currency,exchange
+[ACT|SERVICE_](2022/07/d,18:34:43): a user gets rate dict with params: which = exchange, currency_base = cny
+[ACT|SERVICE_](2022/07/d,18:34:43): a user gets rate dict via ExchangeRate-API
+[API|EXCHANGE](2022/07/d,18:34:43): a user gets rate dict: {'from': 'cny', 'to': {'cad': 0.1942, 'usd': 0.1481, 'hkd': 1.1634, 'jpy': 20.5719, 'eur': 0.1479}}
+[ACT|SERVICE_](2022/07/d,18:34:44): a user gets product list: [{"id": 1, "title": "test", "url": "http", "img": "http", "base": "cad", "price": 123.0, "active": 1}, {"id": 2, "title": "ttt", "url": "http123", "img": "http123", "base": "cny", "price": 6.0, "active": 1}]
+[ACT|SERVICE_](2022/07/d,18:35:25): a user gets base options: cad,cny,usd,hkd,jpy,eur
+[ACT|SERVICE_](2022/07/d,18:35:25): a user gets API options: currency,exchange
+[ACT|SERVICE_](2022/07/d,18:35:29): a user gets base options: cad,cny,usd,hkd,jpy,eur
+[ACT|SERVICE_](2022/07/d,18:35:29): a user gets API options: currency,exchange
+[ACT|SERVICE_](2022/07/d,18:35:29): a user gets rate dict with params: which = currency, currency_base = cny
+[ACT|SERVICE_](2022/07/d,18:35:29): a user gets rate dict via Currency-api
+[API|CURRENCY](2022/07/d,18:35:29): a user gets rate dict: {'from': 'cny', 'to': {'cad': 0.193572, 'usd': 0.148838, 'hkd': 1.168346, 'jpy': 20.500407, 'eur': 0.14846}}
+[ACT|SERVICE_](2022/07/d,18:35:29): a user gets product list: [{"id": 1, "title": "test", "url": "http", "img": "http", "base": "cad", "price": 123.0, "active": 1}, {"id": 2, "title": "ttt", "url": "http123", "img": "http123", "base": "cny", "price": 6.0, "active": 1}]
+[ACT|SERVICE_](2022/07/d,18:35:42): a user gets base options: cad,cny,usd,hkd,jpy,eur
+[ACT|SERVICE_](2022/07/d,18:35:42): a user gets API options: currency,exchange
+[ACT|SERVICE_](2022/07/d,18:35:45): a user gets base options: cad,cny,usd,hkd,jpy,eur
+[ACT|SERVICE_](2022/07/d,18:35:45): a user gets API options: currency,exchange
+[ACT|SERVICE_](2022/07/d,18:35:45): a user gets rate dict with params: which = exchange, currency_base = cny
+[ACT|SERVICE_](2022/07/d,18:35:45): a user gets rate dict via ExchangeRate-API
+[API|EXCHANGE](2022/07/d,18:35:45): a user gets rate dict: {'from': 'cny', 'to': {'cad': 0.1942, 'usd': 0.1481, 'hkd': 1.1634, 'jpy': 20.5719, 'eur': 0.1479}}
+[ACT|SERVICE_](2022/07/d,18:35:45): a user gets product list: [{"id": 1, "title": "test", "url": "http", "img": "http", "base": "cad", "price": 123.0, "active": 1}, {"id": 2, "title": "ttt", "url": "http123", "img": "http123", "base": "cny", "price": 6.0, "active": 1}]
+[ACT|SERVICE_](2022/07/d,18:36:25): a user gets base options: cad,cny,usd,hkd,jpy,eur
+[ACT|SERVICE_](2022/07/d,18:36:25): a user gets API options: currency,exchange

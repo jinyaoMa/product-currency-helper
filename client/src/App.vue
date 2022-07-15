@@ -21,6 +21,10 @@ body {
 .el-form-item__label {
   font-weight: bold;
 }
+
+.el-message {
+  min-width: 280px !important;
+}
 </style>
 
 <style scoped>
@@ -34,6 +38,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 99999;
 }
 
 @keyframes spinScale {
