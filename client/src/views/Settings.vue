@@ -6,6 +6,8 @@ import { useRouter } from 'vue-router'
 const store = useStore()
 const router = useRouter()
 
+const bases = ["CAD", "USD"]
+
 const update = () => {
   router.push("/")
 }
@@ -19,11 +21,16 @@ const cancel = () => {
     <h1 class="title">Settings</h1>
     <el-form class="form" size="large" label-position="top" :model="form">
       <el-form-item label="Currency Base">
-        <el-input type="text" v-model="store.state.currencyBase" @keyup.enter.native="update" />
+        <el-select v-model="store.state.currencyBase" placeholder="Currency Base" style="width: 100%;"
+          @keyup.enter.native="update">
+          <el-option v-for="b in bases" :key="b" :label="b" :value="b" />
+        </el-select>
       </el-form-item>
-      <el-form-item label="Threshold">
-        <el-input-number v-model="store.state.threshold" :precision="2" :step="0.1" :min="0"
-          @keyup.enter.native="update" />
+      <el-form-item label="API">
+        <el-select v-model="store.state.api" placeholder="API" style="width: 100%;" @keyup.enter.native="update">
+          <el-option label="Currency-api" value="currency" />
+          <el-option label="ExchangeRate-API" value="exchange" />
+        </el-select>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="update">Update</el-button>
@@ -55,6 +62,6 @@ const cancel = () => {
 .form {
   width: 240px;
   padding: 20px 20px 0;
-  background-color: #f1f2f3;
+  background-color: #fafbfc;
 }
 </style>

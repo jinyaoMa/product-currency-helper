@@ -7,7 +7,7 @@ const store = {
     isLogin: false,
     isAdmin: false,
     currencyBase: "CAD",
-    threshold: 0.0,
+    api: "currency",
   },
   mutations: {
     changeLoginState(state, isLogin) {

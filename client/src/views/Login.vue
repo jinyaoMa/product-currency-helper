@@ -23,7 +23,8 @@ const login = () => {
     <el-divider class="divider">by Jinyao Ma, 001433428</el-divider>
     <el-form class="form" size="large" label-position="top" :model="form">
       <el-form-item label="Access Token">
-        <el-input type="password" v-model="form.accessToken" show-password @keyup.enter.native="login" />
+        <el-input type="password" v-model="form.accessToken" placeholder="Access Token" show-password
+          @keyup.enter.native="login" />
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="login">Login</el-button>
@@ -47,7 +48,8 @@ const login = () => {
 }
 
 .title {
-  text-shadow: 0.1em 0.1em #999;
+  color: #337ecc;
+  text-shadow: 2px 2px #7ebeff;
 }
 
 .title,
@@ -59,6 +61,6 @@ const login = () => {
   margin-top: 1.3em;
   width: 240px;
   padding: 20px 20px 0;
-  background-color: #f1f2f3;
+  background-color: #fafbfc;
 }
 </style>

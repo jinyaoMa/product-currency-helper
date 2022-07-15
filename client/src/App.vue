@@ -17,6 +17,10 @@ body {
   margin: 0;
   min-width: 280px;
 }
+
+.el-form-item__label {
+  font-weight: bold;
+}
 </style>
 
 <style scoped>

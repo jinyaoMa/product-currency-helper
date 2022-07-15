@@ -51,14 +51,14 @@ const add = () => {
 <template>
   <div class="home">
     <el-container>
-      <el-header class="header">
+      <el-header class="header" style="box-shadow: 0 0 1px #666">
         <div class="header-appname">Product Currency Helper</div>
         <div class="header-more">
           <el-button-group class="header-more-config">
-            <el-button type="primary" size="large" @click="">Settings</el-button>
-            <el-button type="primary" size="large" @click="">Access Tokens</el-button>
+            <el-button type="primary" size="large" @click="router.push('/settings')">Settings</el-button>
+            <el-button type="primary" size="large" @click="router.push('/tokens')">Access Tokens</el-button>
           </el-button-group>
-          <el-button class="header-more-logout" type="danger" size="large" @click="" plain>
+          <el-button class="header-more-logout" type="danger" size="large" @click="router.push('/login')" plain>
             Logout</el-button>
         </div>
       </el-header>
@@ -170,7 +170,8 @@ const add = () => {
   font-weight: bold;
   margin: 0.5em 0;
   text-align: center;
-  text-shadow: 0.1em 0.1em #999;
+  color: #337ecc;
+  text-shadow: 2px 2px #7ebeff;
 }
 
 .header-more {
@@ -184,7 +185,7 @@ const add = () => {
 }
 
 .header-more-logout {
-  margin: 0.5em 0;
+  margin: 14px 0;
 }
 
 .main {
