@@ -3,6 +3,8 @@ yarn.lock
 
 __pycache__
 
+log.txt
+
 # Logs
 logs
 *.log

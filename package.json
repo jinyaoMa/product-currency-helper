@@ -1,0 +1,22 @@
+{
+  "name": "product-currency-helper",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "setup:client": "cd client && npm i",
+    "setup:server": "pip install -r requirements.txt",
+    "run:client": "cd client && npm run dev",
+    "run:server": "python3 server/main.py"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jinyaoMa/product-currency-helper.git"
+  },
+  "author": "jinyaoMa",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jinyaoMa/product-currency-helper/issues"
+  },
+  "homepage": "https://github.com/jinyaoMa/product-currency-helper#readme"
+}
