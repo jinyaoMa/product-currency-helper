@@ -13,10 +13,10 @@ const accessToken = ref("")
 const login = () => {
   store.state.loading = true
   http.get(`/access/${accessToken.value}`).then((res) => {
-    store.state.loading = false
     if (res.data.success) {
       router.push("/")
     } else {
+      store.state.loading = false
       ElMessage({
         message: "Invalid access token",
         type: "error"

@@ -122,12 +122,24 @@ const handleBack = () => {
     <h1 class="title">Access Tokens</h1>
     <el-table class="table" :data="accessTokens" size="large">
       <el-table-column prop="id" label="ID" width="50" />
-      <el-table-column prop="access_token" label="Access Token" min-width="130" />
+      <el-table-column prop="access_token" label="Access Token" min-width="180">
+        <template #default="scope">
+          <span style="margin-right:1em">{{ scope.row.access_token }}</span>
+          <el-tag :type="scope.row.active == 1 ? '' : 'info'" disable-transitions>
+            {{ scope.row.active == 1 ? "Active" : "Inactive" }}
+          </el-tag>
+        </template>
+      </el-table-column>
       <el-table-column prop="permission" label="Permission" min-width="270" />
       <el-table-column fixed="right" label="Operations" width="120">
         <template #default="scope">
-          <el-button v-if="scope.row.active" link type="danger" @click="handleDisable(scope.row)">Disable</el-button>
-          <el-button v-else link type="success" @click="handleEnable(scope.row)">Enable</el-button>
+          <el-button v-if="scope.row.active" size="small" type="danger" @click="handleDisable(scope.row)"
+            style="width:100%">
+            Disable
+          </el-button>
+          <el-button v-else size="small" type="success" @click="handleEnable(scope.row)" style="width:100%">
+            Enable
+          </el-button>
         </template>
       </el-table-column>
     </el-table>

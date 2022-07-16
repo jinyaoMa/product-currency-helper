@@ -33,7 +33,7 @@ class ProductCurrencyHelperServices():
         if token == App().admin_token:
             App().log(self.tag_act_service_, "admin checks token (" + token + ") and pass")
             return AdvancedPermission(ManipulationPermission(BasicPermission(1), 1), 1).get_string()
-        for _, t in self.__token_model.get_list():
+        for t in self.__token_model.get_list():
             if token == t["access_token"] and t["active"] == 1:
                 App().log(self.tag_act_service_, "a user checks token (" + token + ") and pass")
                 return t["permission"]

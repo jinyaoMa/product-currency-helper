@@ -152,6 +152,33 @@ const update = (item) => {
       item.price = i.price
       item.base = i.base
       item.isEdit = false
+      ElMessage({
+        message: `Product with ID ${item.id} updated`,
+        type: "success"
+      })
+    } else {
+      router.push("/login")
+      ElMessage({
+        message: "You have not logged in",
+        type: "error"
+      })
+    }
+  }).catch(() => {
+    store.state.loading = false
+    router.push("/login")
+    ElMessage({
+      message: "Oops, server is down",
+      type: "error"
+    })
+  })
+}
+
+const remove = (item) => {
+  store.state.loading = true
+  http.delete(`/product/${item.id}`).then((res) => {
+    store.state.loading = false
+    if (res.data.success) {
+      items.value.splice(items.value.indexOf(item), 1)
     } else {
       router.push("/login")
       ElMessage({
@@ -186,6 +213,11 @@ const add = () => {
     store.state.loading = false
     if (res.data.success) {
       items.value.push(res.data.data)
+      newItem.title = ""
+      newItem.url = ""
+      newItem.img = ""
+      newItem.price = ""
+      newItem.base = ""
     } else {
       router.push("/login")
       ElMessage({
@@ -255,20 +287,22 @@ const add = () => {
               </el-form>
             </div>
             <template v-else>
+              <div v-if="route.params.permission.manipulation" class="button-delete" @click="remove(item)"></div>
               <img :src="item.img" class="image" />
               <div class="bottom">
-                <div style="font-size: 1.3em; margin-bottom: 0.5em">{{ item.title }}</div>
+                <a class="title-link" :href="item.url" target="_blank">{{ item.title }}</a>
                 <div v-if="store.state.base == item.base">{{ store.state.base.toUpperCase() }}$ {{ item.price }}</div>
                 <div v-else>{{ store.state.base.toUpperCase() }}$ {{ (item.price / rates[item.base]).toFixed(2) }}</div>
                 <div style="font-size: 0.8em">({{ item.base.toUpperCase() }}$ {{ item.price }})</div>
-                <div style="margin-top: 1em">
+                <div v-if="route.params.permission.manipulation" style="margin-top: 1em">
                   <el-button style="width: 100%;" type="primary" size="large" @click="item.isEdit = true">Edit
                   </el-button>
                 </div>
               </div>
             </template>
           </el-card>
-          <el-card class="card" :body-style="{ padding: '0px' }" shadow="hover">
+          <el-card v-if="route.params.permission.manipulation" class="card" :body-style="{ padding: '0px' }"
+            shadow="hover">
             <div class="bottom">
               <el-form class="form" size="large" :model="newItem">
                 <el-form-item>
@@ -357,6 +391,7 @@ const add = () => {
   position: relative;
   height: 384px;
   transition: none;
+  overflow: visible;
 }
 
 @media (min-width: 1414px) {
@@ -408,10 +443,11 @@ const add = () => {
 
 .image {
   width: 100%;
-  height: 382px;
+  height: 280px;
   display: block;
   object-fit: cover;
-  object-position: center;
+  object-position: top center;
+  background-color: #f1f2f3;
 }
 
 .bottom {
@@ -421,5 +457,60 @@ const add = () => {
   background-color: #fff;
   width: 100%;
   box-sizing: border-box;
+}
+
+.title-link {
+  display: block;
+  font-size: 1.3em;
+  margin-bottom: 0.5em;
+  text-decoration: none;
+  color: #409eff;
+  word-break: break-all;
+}
+
+.title-link:hover {
+  text-decoration: underline;
+}
+
+.button-delete {
+  position: absolute;
+  right: -0.8em;
+  top: -0.8em;
+  width: 3em;
+  height: 3em;
+  border-radius: 50%;
+  background-color: #f56c6c;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.button-delete:hover {
+  background-color: #f89898;
+}
+
+.button-delete:before,
+.button-delete:after {
+  content: "";
+  position: absolute;
+  top: 25%;
+  left: calc(50% - 2px);
+  height: 1.2em;
+  transform-origin: 50% 50%;
+  border: 2px solid #fff;
+}
+
+.button-delete:before {
+  transform: rotate(45deg);
+}
+
+.button-delete:after {
+  transform: rotate(-45deg);
+}
+
+.card:hover .button-delete {
+  opacity: 1;
+  pointer-events: all;
 }
 </style>
