@@ -10,9 +10,7 @@
 ################################################################################
 
 from abc import ABC, abstractmethod
-
 from redis import Redis
-from api_strategy import ApiStrategy
 
 
 class RecordFactory():
@@ -29,13 +27,13 @@ class RecordFactory():
         return "product"
 
     # Get record with different structures of data
-    def get_record(self, table, data={}):
-        if table == self.table_token():
+    def get_record(self, from_table, data={}):
+        if from_table == self.table_token():
             return TokenRecord(data)
-        elif table == self.table_product():
+        elif from_table == self.table_product():
             return ProductRecord(data)
         else:
-            raise ValueError(table)
+            raise ValueError(from_table)
 
 
 class Record(ABC):
@@ -43,15 +41,11 @@ class Record(ABC):
     # Record abstract record defined with common structure that every record must have
     ##
 
-    def __init__(self, data):
-        self.data = {}
-        self.set(data)
-
-    # Setup data with certain structure based on different record types
-    def set(self, data):
-        # extend setup
+    def __init__(self, data={}):
+        # setup data with certain structure based on different record types
         self.data = {
             **self.__normalize_data(data),
+            # extend setup
             **self.normalize_record_data(data),
         }
 
@@ -111,6 +105,7 @@ class Record(ABC):
                     **{
                         "id": i,
                     },
+                    # normalize data types
                     **self.__normalize_data(record),
                     **self.normalize_record_data(record)
                 })
@@ -178,6 +173,6 @@ class ProductRecord(Record):
         if "price" in data:
             expect_data["price"] = float(data["price"])
         # base, string | Product’s original currency base
-        if "base" in data and data["base"] in ApiStrategy.base_options:
+        if "base" in data:
             expect_data["base"] = str(data["base"])
         return expect_data

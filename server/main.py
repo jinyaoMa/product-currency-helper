@@ -1,5 +1,3 @@
-from datetime import datetime
-import re
 from app_singleton import App
 from services_facade import ProductCurrencyHelperServices
 from typing import Union
@@ -8,6 +6,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from starlette.middleware.sessions import SessionMiddleware
 import uvicorn
+import re
 
 app = FastAPI()
 services = ProductCurrencyHelperServices()
