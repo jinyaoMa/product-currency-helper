@@ -89,7 +89,7 @@ onMounted(async () => {
       res.data.data.forEach(item => {
         item.isEdit = false
       })
-      items.value = res.data.data
+      items.value = res.data.data.filter((item) => item.active == 1)
     } else {
       router.push("/login")
       ElMessage({
@@ -291,9 +291,11 @@ const add = () => {
               <img :src="item.img" class="image" />
               <div class="bottom">
                 <a class="title-link" :href="item.url" target="_blank">{{ item.title }}</a>
-                <div v-if="store.state.base == item.base">{{ store.state.base.toUpperCase() }}$ {{ item.price }}</div>
+                <div v-if="store.state.base == item.base">{{ store.state.base.toUpperCase() }}$ {{
+                    item.price.toFixed(2)
+                }}</div>
                 <div v-else>{{ store.state.base.toUpperCase() }}$ {{ (item.price / rates[item.base]).toFixed(2) }}</div>
-                <div style="font-size: 0.8em">({{ item.base.toUpperCase() }}$ {{ item.price }})</div>
+                <div style="font-size: 0.8em">({{ item.base.toUpperCase() }}$ {{ item.price.toFixed(2) }})</div>
                 <div v-if="route.params.permission.manipulation" style="margin-top: 1em">
                   <el-button style="width: 100%;" type="primary" size="large" @click="item.isEdit = true">Edit
                   </el-button>

@@ -121,12 +121,7 @@ def create_token(request: Request, permission_string: str):
         token = services.create_token(permission_string)
         return {
             "success": True,
-            "data": {
-                "id": token.id,
-                "access_token": token.access_token,
-                "permission": token.permission,
-                "active": token.active
-            }
+            "data": token.data
         }
     return {"error": "logout"}
 
@@ -174,14 +169,7 @@ def create_product(request: Request, product_form: ProductForm):
         })
         return {
             "success": True,
-            "data": {
-                "id": product.id,
-                "title": product.title,
-                "url": product.url,
-                "img": product.img,
-                "price": product.price,
-                "base": product.base
-            }
+            "data": product.data
         }
     return {"error": "logout"}
 
@@ -199,14 +187,7 @@ def update_product(request: Request, product_form: ProductForm):
         })
         return {
             "success": True,
-            "data": {
-                "id": product.id,
-                "title": product.title,
-                "url": product.url,
-                "img": product.img,
-                "price": product.price,
-                "base": product.base
-            }
+            "data": product.data
         }
     return {"error": "logout"}
 

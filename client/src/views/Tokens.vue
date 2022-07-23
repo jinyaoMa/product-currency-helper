@@ -96,6 +96,8 @@ const handleNew = () => {
     store.state.loading = false
     if (res.data.success) {
       accessTokens.value.push(res.data.data)
+      newPerm.manipulation = false
+      newPerm.advanced = false
     } else {
       router.push("/login")
       ElMessage({
