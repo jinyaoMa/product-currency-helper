@@ -7,6 +7,10 @@
 #          APIs, access token for admin and server's port. Implementation
 #          refers to /$references/singleton.jpg from the project root folder.
 #
+# Reason to use Singleton pattern:
+#  - contain resources for global use
+#  - need to process configuration file for the application setup
+#  - need resources to only be created once
 #
 # Student Name: Jinyao Ma
 # Student ID:   001433428

@@ -7,6 +7,9 @@
 #          normalize the data output from the http response. Implementation
 #          refers to /$references/strategy.jpg from the project root folder.
 #
+# Reason to use Strategy pattern:
+#  - expect to have same sturcture of output from the web service result
+#  - need to use different URLs and parameters for different web services
 #
 # Student Name: Jinyao Ma
 # Student ID:   001433428

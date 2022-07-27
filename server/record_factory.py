@@ -7,6 +7,11 @@
 #          of different types of records. Implementation refers to
 #          /$references/factory.jpg from the project root folder.
 #
+# Reason to use Factory pattern:
+#  - need to normalize the structure of different records
+#  - need every record to have same function name for simple CRUD
+#  - need to filter invalid data before storing data into database
+#  - just to make sure the data structure is correct when create a record object
 #
 # Student Name: Jinyao Ma
 # Student ID:   001433428

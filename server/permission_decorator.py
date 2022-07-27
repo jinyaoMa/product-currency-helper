@@ -7,6 +7,9 @@
 #          Implementation refers to /$references/decorator.jpg
 #          from the project root folder.
 #
+# Reason to use Decorator pattern:
+#  - need to allow different permissions to be composed together
+#
 # Student Name: Jinyao Ma
 # Student ID:   001433428
 #

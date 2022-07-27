@@ -8,6 +8,9 @@
 #          Implementation refers to /$references/chainOfResponsibility.jpg
 #          from the project root folder.
 #
+# Reason to use Chain-of-Responsibility pattern:
+#  - need to process a sequence of logging tasks by one function call
+#
 # Student Name: Jinyao Ma
 # Student ID:   001433428
 #

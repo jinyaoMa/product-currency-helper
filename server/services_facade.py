@@ -5,6 +5,8 @@
 #          specific use cases. Implementation refers to /$references/facade.jpg
 #          from the project root folder.
 #
+# Reason to use Service Layer and Facade pattern:
+#  - tidy up the available services
 #
 # Student Name: Jinyao Ma
 # Student ID:   001433428
