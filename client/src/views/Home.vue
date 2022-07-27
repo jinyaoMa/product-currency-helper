@@ -131,8 +131,8 @@ const logout = () => {
 
 const update = (item) => {
   if (item.title == "" ||
-    !item.url.startsWith("http") ||
-    !item.img.startsWith("http") ||
+    item.url == "" ||
+    item.img == "" ||
     item.price == "" ||
     item.base == "") {
     ElMessage({
@@ -198,8 +198,8 @@ const remove = (item) => {
 
 const add = () => {
   if (newItem.title == "" ||
-    !newItem.url.startsWith("http") ||
-    !newItem.img.startsWith("http") ||
+    newItem.url == "" ||
+    newItem.img == "" ||
     newItem.price == "" ||
     newItem.base == "") {
     ElMessage({

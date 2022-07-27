@@ -1,7 +1,11 @@
 ################################################################################
 # Record using Factory pattern
 #
-# Purpose: to implement simple object-relation-mapping
+# Purpose: Define abstract class with simple CRUD functions, so that all types
+#          of records can get the same structure of data. Use a template method
+#          to extend the constructor of a record for normalizing the data fields
+#          of different types of records. Implementation refers to
+#          /$references/factory.jpg from the project root folder.
 #
 #
 # Student Name: Jinyao Ma

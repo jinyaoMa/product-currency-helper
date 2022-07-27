@@ -1,3 +1,18 @@
+################################################################################
+# API server
+#
+# Purpose: Expose services with access control to the front via FastAPI
+#          and Uvicorn http server.
+#
+# Reference:
+# FastAPI https://fastapi.tiangolo.com/
+# Uvicorn https://www.uvicorn.org/#uvicornrun
+#
+# Student Name: Jinyao Ma
+# Student ID:   001433428
+#
+################################################################################
+
 from app_singleton import App
 from services_facade import ProductCurrencyHelperServices
 from typing import Union
@@ -8,9 +23,11 @@ from starlette.middleware.sessions import SessionMiddleware
 import uvicorn
 import re
 
+# Initialize server and service layer
 app = FastAPI()
 services = ProductCurrencyHelperServices()
 
+# Enable CORS to allow enter from front end - localhost port 8080
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
@@ -22,6 +39,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Enable cookie-based session
 IS_LOGIN = "islogin"
 PERMISSION = "permission"
 app.add_middleware(
@@ -33,7 +51,8 @@ app.add_middleware(
 
 
 class ProductForm(BaseModel):
-    id: Union[int, None] = None
+    # Structure of input from http request to add/update a product
+    id: Union[int, None] = None  # no id needed for adding a product
     title: str
     url: str
     img: str
@@ -41,6 +60,7 @@ class ProductForm(BaseModel):
     base: str
 
 
+# User login with access token
 @app.get("/api/access/{access_token}", status_code=status.HTTP_200_OK)
 def access_with_token(request: Request, response: Response, access_token: str):
     request.session[PERMISSION] = services.check_token(access_token)
@@ -58,6 +78,7 @@ def access_with_token(request: Request, response: Response, access_token: str):
     }
 
 
+# User logout if it is currently logged in
 @app.get("/api/logout", status_code=status.HTTP_200_OK)
 def logout(request: Request, response: Response):
     if request.session[IS_LOGIN]:
@@ -70,6 +91,7 @@ def logout(request: Request, response: Response):
         return {"error": "logout"}
 
 
+# Get currency base options, available for users with basic permission
 @app.get("/api/base-options", status_code=status.HTTP_200_OK)
 def get_base_options(request: Request):
     if request.session[IS_LOGIN] and len(re.findall("basic:1", request.session[PERMISSION])) > 0:
@@ -81,6 +103,7 @@ def get_base_options(request: Request):
     return {"error": "logout"}
 
 
+# Get web service options, available for users with basic permission
 @app.get("/api/api-options", status_code=status.HTTP_200_OK)
 def get_api_options(request: Request):
     if request.session[IS_LOGIN] and len(re.findall("basic:1", request.session[PERMISSION])) > 0:
@@ -92,6 +115,7 @@ def get_api_options(request: Request):
     return {"error": "logout"}
 
 
+# Get exchange rate list, available for users with basic permission
 @app.get("/api/service/{which}/base/{base}", status_code=status.HTTP_200_OK)
 def get_rate_dict(request: Request, which: str, base: str):
     if request.session[IS_LOGIN] and len(re.findall("basic:1", request.session[PERMISSION])) > 0:
@@ -103,6 +127,7 @@ def get_rate_dict(request: Request, which: str, base: str):
     return {"error": "logout"}
 
 
+# Get token list, available for users with advanced permission
 @app.get("/api/token/list", status_code=status.HTTP_200_OK)
 def get_token_list(request: Request):
     if request.session[IS_LOGIN] and len(re.findall("advanced:1", request.session[PERMISSION])) > 0:
@@ -114,6 +139,7 @@ def get_token_list(request: Request):
     return {"error": "logout"}
 
 
+# Create a new token, available for users with advanced permission
 @app.put("/api/token/{permission_string}", status_code=status.HTTP_200_OK)
 def create_token(request: Request, permission_string: str):
     if request.session[IS_LOGIN] and len(re.findall("advanced:1", request.session[PERMISSION])) > 0:
@@ -125,6 +151,7 @@ def create_token(request: Request, permission_string: str):
     return {"error": "logout"}
 
 
+# Deactivate a token, available for users with advanced permission
 @app.post("/api/token/{id}/deactivate", status_code=status.HTTP_200_OK)
 def deactivate_token(request: Request, id: int):
     if request.session[IS_LOGIN] and len(re.findall("advanced:1", request.session[PERMISSION])) > 0:
@@ -135,6 +162,7 @@ def deactivate_token(request: Request, id: int):
     return {"error": "logout"}
 
 
+# Re-activate a token, available for users with advanced permission
 @app.post("/api/token/{id}/activate", status_code=status.HTTP_200_OK)
 def activate_token(request: Request, id: int):
     if request.session[IS_LOGIN] and len(re.findall("advanced:1", request.session[PERMISSION])) > 0:
@@ -145,6 +173,7 @@ def activate_token(request: Request, id: int):
     return {"error": "logout"}
 
 
+# Get product list, available for users with basic permission
 @app.get("/api/product/list", status_code=status.HTTP_200_OK)
 def get_product_list(request: Request):
     if request.session[IS_LOGIN] and len(re.findall("basic:1", request.session[PERMISSION])) > 0:
@@ -156,6 +185,7 @@ def get_product_list(request: Request):
     return {"error": "logout"}
 
 
+# Create a new product, available for users with manipulation permission
 @app.put("/api/product", status_code=status.HTTP_200_OK)
 def create_product(request: Request, product_form: ProductForm):
     if request.session[IS_LOGIN] and len(re.findall("manipulation:1", request.session[PERMISSION])) > 0:
@@ -173,6 +203,7 @@ def create_product(request: Request, product_form: ProductForm):
     return {"error": "logout"}
 
 
+# Update a product, available for users with manipulation permission
 @app.post("/api/product", status_code=status.HTTP_200_OK)
 def update_product(request: Request, product_form: ProductForm):
     if request.session[IS_LOGIN] and len(re.findall("manipulation:1", request.session[PERMISSION])) > 0:
@@ -191,10 +222,11 @@ def update_product(request: Request, product_form: ProductForm):
     return {"error": "logout"}
 
 
+# Delete a product, available for users with manipulation permission
 @app.delete("/api/product/{id}", status_code=status.HTTP_200_OK)
 def delete_product(request: Request, id: int):
     if request.session[IS_LOGIN] and len(re.findall("manipulation:1", request.session[PERMISSION])) > 0:
-        services.delete_product(id)
+        services.deactivate_product(id)
         return {
             "success": True,
         }
